@@ -1,0 +1,96 @@
+﻿<Window x:Class="MemoryGame2.Views.SetupGame"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MemoryGame2.Views"
+        xmlns:conv="clr-namespace:MemoryGame2.Converters"
+        mc:Ignorable="d"
+        Title="SetupGame" Height="550" Width="650"
+        
+        >
+
+    <Window.Background>
+        <ImageBrush ImageSource="\background\seaside.jpg" Stretch="Fill" />
+    </Window.Background>
+
+    <Window.Resources>
+        <conv:RadioButtonConverter x:Key="RadioButtonConverter" />
+        <conv:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="#AAFFFFFF" CornerRadius="10" Padding="15" Margin="0,0,0,20">
+            <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Source="{Binding User.ImageUrl}" Width="80" Height="80"/>
+                <TextBlock Text="{Binding User.Name}" FontSize="28" FontWeight="Bold" Margin="20,15,0,0"/>
+            </WrapPanel>
+        </Border>
+
+        <WrapPanel Grid.Row="1" HorizontalAlignment="Center"  Margin="0,0,0,20">
+
+            <!-- Select Card Type -->
+            <Border Background="#CCFFFFFF" CornerRadius="10" Padding="10" Margin="10">
+                <GroupBox Header="Select Card Type" FontWeight="Bold" BorderBrush="#FF007ACC" Foreground="#FF007ACC">
+                    <UniformGrid Columns="1" Margin="10">
+                        <RadioButton Content="Sea" Margin="5" IsChecked="{Binding CardType, Converter={StaticResource RadioButtonConverter}, ConverterParameter=Sea}"/>
+                        <RadioButton Content="Travel" Margin="5" IsChecked="{Binding CardType, Converter={StaticResource RadioButtonConverter}, ConverterParameter=Travel}" />
+                        <RadioButton Content="Food" Margin="5" IsChecked="{Binding CardType, Converter={StaticResource RadioButtonConverter}, ConverterParameter=Food}"/>
+                        <RadioButton Content="Happy" Margin="5" IsChecked="{Binding CardType, Converter={StaticResource RadioButtonConverter}, ConverterParameter=Happy}"/>
+                    </UniformGrid>
+                </GroupBox>
+            </Border>
+
+            <!-- Select Grid Dimension -->
+            <Border Background="#CCFFFFFF" CornerRadius="10" Padding="10" Margin="10">
+                <GroupBox Header="Select Grid Dimension" FontWeight="Bold" BorderBrush="#FF007ACC" Foreground="#FF007ACC">
+                    <StackPanel Margin="10">
+                        <RadioButton Content="Standard (4×4)" IsChecked="{Binding IsCustomDimension, Converter={StaticResource InverseBooleanConverter}}" Margin="0,5"/>
+                        <RadioButton Content="Custom" IsChecked="{Binding IsCustomDimension}" Margin="0,5"/>
+                        <Grid x:Name="CustomGrid" Margin="5,10,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Rows:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtRows" Text="{Binding Rows, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Cols:" VerticalAlignment="Center" Margin="0,5,5,0"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtCols" Text="{Binding Cols, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="50" Margin="0,5,0,0"/>
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+            </Border>
+
+            <!-- Select Game Time -->
+            <Border Background="#CCFFFFFF" CornerRadius="10" Padding="10" Margin="0,10,0,10" Width="190">
+                <GroupBox Header="Select Game Time" FontWeight="Bold" BorderBrush="#FF007ACC" Foreground="#FF007ACC">
+                    <StackPanel Margin="10">
+                        <TextBlock Text="Time (sec):" Margin="0,0,0,5"/>
+                        <!-- Bind to a property named GameTime in your ViewModel. -->
+                        <TextBox x:Name="txtGameTime" Text="{Binding Time, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="80"/>
+                    </StackPanel>
+                </GroupBox>
+            </Border>
+
+        </WrapPanel>
+
+        <!-- Bottom Buttons -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Height="50" Width="110" Background="#27ae60" Foreground="White" Content="New Game" Command="{Binding NewGameCommand}" />
+            <Button Height="50" Width="110" Background="#3498db" Foreground="White" Content="Open Game" Command="{Binding OpenGameCommand}" />
+            <Button Height="50" Width="110" Background="#3498db" Foreground="White" Content="Statistics" Command="{Binding StatisticsCommand}"/>
+            <Button Height="50" Width="110" Background="#e74c3c" Foreground="White" Content="Exit" Command="{Binding CloseCommand}" />
+        </StackPanel>
+
+    </Grid>
+</Window>

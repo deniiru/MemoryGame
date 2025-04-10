@@ -1,0 +1,70 @@
+﻿<Window x:Class="MemoryGame2.Views.StatisticsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MemoryGame2.ViewModel"
+        mc:Ignorable="d"
+        Title="Game Statistics" Height="550" Width="650"
+        WindowStartupLocation="CenterScreen"
+        >
+    <Window.Background>
+        <ImageBrush ImageSource="\background\seaside.jpg" Stretch="Fill" />
+    </Window.Background>
+
+    
+    <Window.DataContext>
+        <local:StatisticsVM />
+    </Window.DataContext>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="#AAFFFFFF" CornerRadius="10"  Margin="0,0,0,20">
+            <TextBlock Text="Game Statistics" FontSize="28" FontWeight="Bold" Margin="20,15,0,0"/>
+        </Border>
+
+        <ListView Grid.Row="1" 
+                  x:Name="UsersStatsList"
+                  ItemsSource="{Binding Users}"
+                  Background="LavenderBlush"
+                  BorderBrush="#FF8867C6"
+                  Margin="0,5"
+                  SelectionMode="Single">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Avatar" Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding ImageUrl}" 
+                                       Width="50" 
+                                       Height="50"
+                                       Stretch="Uniform"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="User Name" Width="150" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Played" Width="100" DisplayMemberBinding="{Binding Tries}"/>
+                    <GridViewColumn Header="Wins" Width="120" DisplayMemberBinding="{Binding Wins}"/>
+                    <GridViewColumn Header="WinRate" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0:F1}%">
+                                            <Binding Path="WinRate"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>

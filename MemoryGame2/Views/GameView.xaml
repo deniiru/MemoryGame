@@ -1,0 +1,85 @@
+﻿<Window x:Class="MemoryGame2.Views.GameView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MemoryGame2.ViewModel"
+             mc:Ignorable="d" 
+             Height="550" Width="650"
+             >
+
+    <Window.Resources>
+        <!-- Style for card buttons -->
+        <Style x:Key="CardButtonStyle" TargetType="Button">
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="IsTabStop" Value="False" />
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+
+        </Style>
+        <!-- Style for control buttons -->
+        <Style x:Key="ControlButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Margin" Value="10,0"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </Window.Resources>
+
+    <!-- Background image -->
+    <Window.Background>
+        <ImageBrush ImageSource="/background/ocean.jpg" Stretch="UniformToFill" />
+    </Window.Background>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            
+            <TextBlock Grid.Column="1" Text="{Binding User.Name}" FontSize="24" Margin="10" />
+            <TextBlock Grid.Column="2" Text="{Binding Timer.TimeLeft}" FontSize="24" Margin="10" />
+           
+        </Grid>
+        
+        <!-- Card grid -->
+        <ItemsControl ItemsSource="{Binding Cards}" Grid.Row="1"  VerticalAlignment="Center">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="{Binding Cols}" Rows="{Binding Rows}"  Height="400" Width="500"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Style="{StaticResource CardButtonStyle}"
+                            Command="{Binding DataContext.CardClickCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                            CommandParameter="{Binding}" 
+                            Visibility="{Binding CardVisible}">
+                        <Image Height="70" Width="70"
+                               Source="{Binding DisplayImagePath}"
+                               Stretch="UniformToFill" />
+                    </Button>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <!-- Control Buttons -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Bottom"
+                    HorizontalAlignment="Center"  Margin="0,10">
+            <Button Style="{StaticResource ControlButtonStyle}" Content="Save"
+                    Background="#3498db"  Command="{Binding SaveGameCommand}"/>
+            <Button Style="{StaticResource ControlButtonStyle}" Content="Exit"
+                    Background="#e74c3c"  Command="{Binding CloseCommand}"/>
+        </StackPanel>
+    </Grid>
+</Window>
