@@ -152,7 +152,7 @@ namespace MemoryGame2.Services
                     string jsonString = File.ReadAllText(gameFilePath);
                     var savedGames = JsonSerializer.Deserialize<List<GameSaveData>>(jsonString);
                     return savedGames ?? new List<GameSaveData>();
-                    MessageBox.Show(savedGames[0].ToString());
+                  
                 }
             }
             catch (Exception ex)

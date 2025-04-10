@@ -55,9 +55,7 @@ namespace MemoryGame2.ViewModel
 
         public void LoadUsers()
         {
-
             Users = FileHelpers.LoadFromFileCollection();
-            MessageBox.Show("Loading users");
         }
 
         public ICommand NextImageCommand { get; private set; }

@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MemoryGame2.ViewModel"
         mc:Ignorable="d"
-        Title="NewUserView" Height="450" Width="450"
-      
+        Title="NewUserView" Height="550" Width="550"
+      WindowStartupLocation="CenterScreen"
         >
     <Window.Background>
         <ImageBrush ImageSource="\background\seaside.jpg" Stretch="Fill" />

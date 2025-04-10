@@ -54,7 +54,7 @@ namespace MemoryGame2.Services
 
         public static void PlayGame(UserModel user)
         {
-            MessageBox.Show(user.Name);
+           
             if (user == null)
             {
                 MessageBox.Show("User is empthy");

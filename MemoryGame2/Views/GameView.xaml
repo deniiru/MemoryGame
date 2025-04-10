@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:MemoryGame2.ViewModel"
              mc:Ignorable="d" 
              Height="550" Width="650"
+        WindowStartupLocation="CenterScreen"
              >
 
     <Window.Resources>

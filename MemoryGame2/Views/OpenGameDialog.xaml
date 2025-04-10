@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:MemoryGame2.ViewModel"
         mc:Ignorable="d"
         Title="OpenGameDialog" Height="550" Width="650"
-        Background="LightBlue">
+        Background="LightBlue"
+        WindowStartupLocation="CenterScreen"
+        >
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
